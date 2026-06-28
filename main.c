@@ -47,55 +47,57 @@ void calcularDesvioP(Estacao *e){
 }
 
 void adicionarEstacao(Estacao *e){
-
+    printf("ID (0-9999): ");
     scanf("%d", &e->id);
         while(e->id < 0 || e->id > 9999){
             printf("Id Invalido. Insira novamente valores entre 0 e 9999\n");
             scanf("%d", &e->id);
 }
-
+    printf("Nome da estacao: ");
     scanf("%s", e->nome);
-        
+    printf("Operador: ");   
     scanf("%s", e->operador);
-
+    printf("Sensor: ");
     scanf("%s", e->sensor);
 
     int diasDoMes[] = {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
-
+    printf("Ano (1900-2100): ");
     scanf("%d", &e->data.ano);
         while(e->data.ano < 1900 || e->data.ano > 2100){
-            printf("Insira um ano válido.\n");
+            printf("Insira um ano valido.\n");
             scanf("%d", &e->data.ano);
 }
-               
+    printf("Mes (1-12): ");              
     scanf("%d", &e->data.mes);
         while(e->data.mes < 1 || e->data.mes > 12){
-            printf("Insira um mês válido.\n");
+            printf("Insira um mês valido.\n");
             scanf("%d", &e->data.mes);
 }
 
     if((e->data.ano % 4 == 0 && e->data.ano % 100 != 0) || e->data.ano % 400 == 0){ //Estrutura para identificar anos bissextos e verificar a válidades das datas.
         diasDoMes[2] = 29;
 }
+    printf("Dia: ");
     scanf("%d", &e->data.dia);
         while(e->data.dia < 1 || e->data.dia > diasDoMes[e->data.mes]){
-            printf("Insira um dia válido.\n");
+            printf("Insira um dia valido.\n");
             scanf("%d", &e->data.dia);
 
 }
-
+    printf("Quantidade de leituras: ");
     scanf("%d", &e->n);
         while (e->n < 1 || e->n > 9999){
-            printf("Insira um valor válido.\n");
+            printf("Insira um valor valido.\n");
             scanf("%d", &e->n);
 }
 
     e->leituras = (float *) malloc(sizeof(float) * e->n);
         if(e->leituras == NULL){
-            printf("Erro de memória.\n");
+            printf("Erro de memoria.\n");
             return;
 }
     for(int i = 0; i < e->n; i++){
+        printf("Leitura %d: ", i + 1);
         scanf("%f", &e->leituras[i]);
 }
 
@@ -106,11 +108,11 @@ calcularDesvioP(e);
 
 void listarEstacoes(Estacao *estacoes, int total){ //função que percorre e exibe todos os dados das estações
     for(int i = 0; i < total; i++){
-        printf("Estação: %d\n", estacoes[i].id);
+        printf("Estacao: %d\n", estacoes[i].id);
         printf("Nome: %s\n", estacoes[i].nome);
         printf("Operador: %s\n", estacoes[i].operador);
         printf("Sensor: %s\n", estacoes[i].sensor);
-        printf("Número de leituras: %d\n", estacoes[i].n);
+        printf("Numero de leituras: %d\n", estacoes[i].n);
         printf("Media: %f\n", estacoes[i].media);
         printf("Variancia: %f\n", estacoes[i].variancia);
         printf("Desvio Padrão: %f\n", estacoes[i].desvioPadrao);
@@ -120,7 +122,7 @@ void listarEstacoes(Estacao *estacoes, int total){ //função que percorre e exi
 
 void editarEstacoes(Estacao *estacoes, int total){ //função que permite editar os dados das estações
     int id;
-    printf("Digite o ID da estação: ");
+    printf("Digite o ID da estacao: ");
     scanf("%d", &id);
     for(int i = 0; i < total; i++){
         if(estacoes[i].id == id){
@@ -139,12 +141,12 @@ void editarEstacoes(Estacao *estacoes, int total){ //função que permite editar
             return;
         }
     }
-    printf("Estação com ID %d não encontrada.\n", id);
+    printf("Estacao com ID %d nao encontrada.\n", id);
 }
 
 void excluirEstacao(Estacao *estacoes, int *total){ //função que permite excluir a estação pelo ID
     int id;
-    printf("Digite o ID da estação: ");
+    printf("Digite o ID da estacao: ");
     scanf("%d", &id);
     for(int i = 0; i < *total; i++){
         if(estacoes[i].id == id){
@@ -153,7 +155,7 @@ void excluirEstacao(Estacao *estacoes, int *total){ //função que permite exclu
             return;
         }
     }
-    printf("Estação com ID %d não encontrada.\n", id);    
+    printf("Estacao com ID %d nao encontrada.\n", id);    
 }
 
 void buscarPorOperador(Estacao *estacoes, int total){ //função que permite buscar por um operador
@@ -163,7 +165,7 @@ void buscarPorOperador(Estacao *estacoes, int total){ //função que permite bus
     int encontrou = 0;
     for(int i = 0; i < total; i++){
         if(strcmp(estacoes[i].operador, operador) == 0){
-        printf("Estação: %d\n", estacoes[i].id);
+        printf("Estacao: %d\n", estacoes[i].id);
         printf("Nome: %s\n", estacoes[i].nome);
         printf("Operador: %s\n", estacoes[i].operador);
         printf("Sensor: %s\n", estacoes[i].sensor);
@@ -176,7 +178,7 @@ void buscarPorOperador(Estacao *estacoes, int total){ //função que permite bus
         }
     }
     if(encontrou == 0){
-    printf("Operador %s não encontrado.\n", operador);
+    printf("Operador %s nao encontrado.\n", operador);
 }   
 }
 
@@ -197,7 +199,7 @@ void detectarAnomalias(Estacao *estacoes, int total){
             return;
         }
     }
-    printf("Estação com ID %d não encontrada.\n", id);
+    printf("Estacao com ID %d nao encontrada.\n", id);
 }
 
 void salvarnoCSV(Estacao *estacoes, int total){
@@ -258,15 +260,15 @@ int total = 0;
 int opcao;
 
 do{
-    printf("||1. Adicionar estação  ||\n");
-    printf("||2. Editar estação     ||\n");
-    printf("||3. Excluir estação    ||\n");
-    printf("||4. Listar estações    ||\n");
-    printf("||5. Buscar por Operador||\n");
-    printf("||6. Detectar anomalias ||\n");
-    printf("||7. Salvar CSV         ||\n");
-    printf("||8. Carregar CSV       ||\n");
-    printf("||0. Sair do programa   ||\n");
+	printf("||1. Adicionar estacao  ||\n");
+	printf("||2. Editar estacao     ||\n");
+	printf("||3. Excluir estacao    ||\n");
+	printf("||4. Listar estacoes    ||\n");
+	printf("||5. Buscar por Operador||\n");
+	printf("||6. Detectar anomalias ||\n");
+	printf("||7. Salvar CSV         ||\n");
+	printf("||8. Carregar CSV       ||\n");
+	printf("||0. Sair               ||\n");
     scanf("%d", &opcao);
 
 switch (opcao){
@@ -299,7 +301,7 @@ case 0:
         printf("Saindo...\n");
         break;
     default:
-        printf("Opção invalida.\n");
+        printf("Opcao invalida.\n");
 }
 } while(opcao != 0);
 
